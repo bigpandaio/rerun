@@ -1,29 +1,20 @@
 var request = require('request');
+var RetryError = require('./error/retry');
+var promiseRetry = require('./promise');
 var Q = require('q');
 
 module.exports = function (requestData, retries) {
-  var deferred = Q.defer();
-  var retries = retries || requestData.retries || 3;
+  var retries = retries || requestData.retries;
 
-  function _innerCallback(error, response, body) {
-    if (response && response.statusCode >= 300) {
-      error = 'Status code: ' + response.statusCode + '. ' + (body ? 'body: ' + JSON.stringify(body) : '');
-    }
-    // User error, we should not retry
-    if (response && response.statusCode == 400) {
-      retries = 0;
-    }
-    if (error) {
-      if (--retries <= 0) {
-        return deferred.reject(new Error(error));
-      } else {
-        return request(requestData, _innerCallback);
+  return promiseRetry(function () {
+    return Q.nfcall(request, requestData).then(function (answer) {
+      var response = answer[0];
+      var body = answer[1];
+      if (response && response.statusCode >= 300 && response.statusCode != 400) {
+        return Q.reject(new RetryError('Status code: ' + response.statusCode + '. ' + (body ? 'body: ' + JSON.stringify(body) : '')));
       }
-    }
-    return deferred.resolve();
-  }
 
-  request(requestData, _innerCallback);
-
-  return deferred.promise;
+      return Q(answer);
+    }, retries);
+  });
 }
