@@ -18,7 +18,7 @@ describe('Retry tests', function () {
     var promise = request({ url: 'http://localhost:3027/test', json: { objects: array }, retries: 4, method: 'POST' });
     promise.then(function () {
       done(new Error('should fail'));
-    }, function (error) {
+    }, function () {
       scope.done();
       done();
     });
@@ -32,13 +32,30 @@ describe('Retry tests', function () {
     var array = [
       { id: id, data: data }
     ];
-    var scope = nock('http://localhost:3027').post('/test', JSON.stringify({ objects: array })).times(2).reply(200);
+    nock('http://localhost:3027').post('/test', JSON.stringify({ objects: array })).reply(401);
+    nock('http://localhost:3027').post('/test', JSON.stringify({ objects: array })).reply(200);
     var promise = request({ url: 'http://localhost:3027/test', json: { objects: array }, retries: 4, method: 'POST' });
     promise.then(function () {
-      scope.done();
       done();
     }, function (error) {
       done(error);
+    });
+  });
+  it('should not retry on user error', function (done) {
+    var id = { complicated: 'id' };
+    var data = [
+      { foo: 'bar' }
+    ];
+    var array = [
+      { id: id, data: data }
+    ];
+    var scope = nock('http://localhost:3027').post('/test', JSON.stringify({ objects: array })).reply(400);
+    var promise = request({ url: 'http://localhost:3027/test', json: { objects: array }, retries: 3, method: 'POST' });
+    promise.then(function () {
+      done(new Error('Should fail'));
+    }, function () {
+      scope.done();
+      done();
     });
   });
 });
