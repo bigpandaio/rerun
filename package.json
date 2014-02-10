@@ -1,7 +1,7 @@
 {
   "name": "retry",
   "description": "A retry library for node.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "BigPanda <noam@bigpanda.io>",
   "repository": {
     "type": "git",
