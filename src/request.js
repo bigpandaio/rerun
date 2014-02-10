@@ -15,6 +15,6 @@ module.exports = function (requestData, retries) {
       }
 
       return Q(answer);
-    }, retries);
+    }, { retries: retries });
   });
 }

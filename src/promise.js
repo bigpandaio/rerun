@@ -1,9 +1,9 @@
 var Q = require('q');
 var RetryError = require('./error/retry');
 
-module.exports = function (toRetry, retries) {
+module.exports = function (toRetry, options) {
   var deferred = Q.defer();
-  var retries = retries || 3;
+  var retries = options.retries || 3;
 
   function _succeed(returned) {
     return deferred.resolve(returned);
