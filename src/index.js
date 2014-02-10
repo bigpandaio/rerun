@@ -1,3 +1,5 @@
 module.exports = {
-  request: require('./request')
+  request: require('./request'),
+  RetryError: require('./error/retry'),
+  promise: require('./promise')
 }

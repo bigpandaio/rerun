@@ -5,15 +5,7 @@ var nock = require('nock');
 var retry = require('../../src/index')
 var request = retry.request;
 
-function upperFirst(str) {
-  return str.slice(0, 1).toUpperCase() + str.slice(1);
-}
-
 describe('Retry tests', function () {
-  var ORG = 'pandaorg';
-  var objectId;
-  var objectId2;
-
   it('should fail after four tries', function (done) {
     var id = { complicated: 'id' };
     var data = [

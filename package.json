@@ -1,11 +1,11 @@
 {
-  "name": "retry",
+  "name": "rerun",
   "description": "A retry library for node.js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "BigPanda <noam@bigpanda.io>",
   "repository": {
     "type": "git",
-    "url": "http://github.com/bigpandaio/retry.git"
+    "url": "http://github.com/bigpandaio/rerun.git"
   },
   "keywords": [
     "try",
