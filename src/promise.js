@@ -5,8 +5,8 @@ module.exports = function (toRetry, options) {
   var deferred = Q.defer();
   var options = options || {};
   var retries = options.retries || 3;
-  var timeout = options.timeout || 50;
-  var factor = options.factor || 1;
+  var timeout = options.retryTimeout || 50;
+  var factor = options.retryFactor || 1;
 
   function _succeed(returned) {
     return deferred.resolve(returned);
