@@ -3,9 +3,7 @@ var RejectError = require('./error/reject');
 var promiseRetry = require('./promise');
 var Q = require('q');
 
-module.exports = function (requestData, retries) {
-  var retries = retries || requestData.retries;
-
+module.exports = function (requestData) {
   return promiseRetry(function () {
     return Q.nfcall(request, requestData).then(function (answer) {
       var response = answer[0];
@@ -19,5 +17,5 @@ module.exports = function (requestData, retries) {
 
       return Q(answer);
     })
-  }, { retries: retries });
+  }, requestData);
 }
