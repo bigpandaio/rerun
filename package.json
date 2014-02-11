@@ -17,7 +17,7 @@
     "q": "~1.0.0",
     "request": "~2.33.0"
   },
-  "main": "./src/retry.js",
+  "main": "./src/index.js",
   "scripts": {
     "test": "mocha --recursive test/*"
   },
