@@ -68,7 +68,7 @@ describe('Retry tests', function () {
     ];
     nock('http://localhost:3027').post('/test', JSON.stringify({ objects: array })).times(4).reply(401);
     var scope = nock('http://localhost:3027').post('/test', JSON.stringify({ objects: array })).reply(200);
-    var promise = request({ url: 'http://localhost:3027/test', json: { objects: array }, retries: 5, factor: 2, timeout: 10, method: 'POST' });
+    var promise = request({ url: 'http://localhost:3027/test', json: { objects: array }, retries: 5, retryFactor: 2, retryTimeout: 10, method: 'POST' });
     var timeBefore = new Date().getTime();
     promise.then(function () {
       expect(new Date().getTime() - timeBefore).to.lte(170).and.to.gte(130);
