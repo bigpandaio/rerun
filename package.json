@@ -1,7 +1,7 @@
 {
   "name": "rerun",
   "description": "A retry library for node.js",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "author": "BigPanda <noam@bigpanda.io>",
   "repository": {
     "type": "git",
@@ -17,7 +17,7 @@
     "q": "~1.0.0",
     "request": "~2.33.0"
   },
-  "main": "./src/retry.js",
+  "main": "./src/index.js",
   "scripts": {
     "test": "mocha --recursive test/*"
   },
