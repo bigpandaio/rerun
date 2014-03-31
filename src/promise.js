@@ -1,5 +1,4 @@
 var Q = require('q');
-var RejectError = require('./error/reject');
 
 module.exports = function (toRetry, options) {
   var deferred = Q.defer();
@@ -7,6 +6,7 @@ module.exports = function (toRetry, options) {
   var retries = options.retries || 3;
   var timeout = options.retryTimeout || 50;
   var factor = options.retryFactor || 1;
+  var RejectError = options.rejectError || require('./error/reject');
 
   function _succeed(returned) {
     return deferred.resolve(returned);
