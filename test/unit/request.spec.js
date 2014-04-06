@@ -58,6 +58,43 @@ describe('Retry tests', function () {
       done();
     });
   });
+
+  it('should not retry even if rejecterror is defined weird', function (done) {
+    var id = { complicated: 'id' };
+    var data = [
+      { foo: 'bar' }
+    ];
+    var array = [
+      { id: id, data: data }
+    ];
+    var scope = nock('http://localhost:3027').post('/test', JSON.stringify({ objects: array })).reply(400);
+    var promise = request({ url: 'http://localhost:3027/test', json: { objects: array }, retries: 3, method: 'POST', rejectError: undefined });
+    promise.then(function () {
+      done(new Error('Should fail'));
+    }, function () {
+      scope.done();
+      done();
+    });
+  });
+
+  it('should not retry even if rejecterror is defined', function (done) {
+    var id = { complicated: 'id' };
+    var data = [
+      { foo: 'bar' }
+    ];
+    var array = [
+      { id: id, data: data }
+    ];
+    var scope = nock('http://localhost:3027').post('/test', JSON.stringify({ objects: array })).reply(400);
+    var promise = request({ url: 'http://localhost:3027/test', json: { objects: array }, retries: 3, method: 'POST', rejectError: require('../../src/promise') });
+    promise.then(function () {
+      done(new Error('Should fail'));
+    }, function () {
+      scope.done();
+      done();
+    });
+  });
+
   it('should wait exponential time', function (done) {
     var id = { complicated: 'id' };
     var data = [
