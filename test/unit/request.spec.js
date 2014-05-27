@@ -115,4 +115,26 @@ describe('Retry tests', function () {
       done(err);
     });
   });
+
+
+  it('should randomize time', function (done) {
+    var id = { complicated: 'id' };
+    var data = [
+      { foo: 'bar' }
+    ];
+    var array = [
+      { id: id, data: data }
+    ];
+    nock('http://localhost:3027').post('/test', JSON.stringify({ objects: array })).times(1).reply(401);
+    var scope = nock('http://localhost:3027').post('/test', JSON.stringify({ objects: array })).reply(200);
+    var promise = request({ url: 'http://localhost:3027/test', json: { objects: array }, retries: 2, retryFactor: 2, retryTimeout: 200, retryRandom: true, method: 'POST' });
+    var timeBefore = new Date().getTime();
+    promise.then(function () {
+      expect(new Date().getTime() - timeBefore).to.lte(200).and.to.gte(100);
+      scope.done();
+      done();
+    }, function (err) {
+      done(err);
+    });
+  });
 });
