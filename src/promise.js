@@ -8,6 +8,7 @@ module.exports = function (toRetry, options) {
   var timeout = options.retryTimeout || 50;
   var factor = options.retryFactor || 1;
   var userRejectError = options.rejectError || RejectError;
+  var randomizeRetry = options.retryRandom || false;
 
   function _succeed(returned) {
     return deferred.resolve(returned);
@@ -17,7 +18,8 @@ module.exports = function (toRetry, options) {
     if (error instanceof RejectError || error instanceof userRejectError || --retries <= 0) {
       deferred.reject(error);
     } else {
-      Q.delay(timeout).then(function () { return toRetry() }).then(_succeed, _failed);
+      var timeToWait = randomizeRetry ? Math.random() * (timeout / 2) + (timeout / 2) : timeout; 
+      Q.delay(timeToWait).then(function () { return toRetry() }).then(_succeed, _failed);
       timeout *= factor;
     }
   }
