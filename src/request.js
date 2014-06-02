@@ -10,9 +10,9 @@ module.exports = function (requestData) {
       var body = answer[1];
 
       if (response && response.statusCode == 400) {
-        return Q.reject(new RejectError('Status code: ' + response.statusCode + '. ' + (body ? 'body: ' + JSON.stringify(body) : '')));
+        return Q.reject(new RejectError({ message: 'Status code: ' + response.statusCode + '. ' + (body ? 'body: ' + JSON.stringify(body) : ''), response: response, body: body }));
       } else if (response && response.statusCode >= 300) {
-        return Q.reject(new Error('Status code: ' + response.statusCode + '. ' + (body ? 'body: ' + JSON.stringify(body) : '')));
+        return Q.reject(new Error({ message: 'Status code: ' + response.statusCode + '. ' + (body ? 'body: ' + JSON.stringify(body) : ''), response: response, body: body }));
       }
 
       return Q(answer);
