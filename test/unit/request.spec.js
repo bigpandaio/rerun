@@ -135,6 +135,6 @@ describe('Retry tests', function () {
       done();
     }, function (err) {
       done(err);
-    });
+    }).done();
   });
 });
