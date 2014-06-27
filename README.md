@@ -14,7 +14,7 @@ The options and their defaults for rerun library are:
 ```
 
 * `retries` - How many times to retry before failing.
-* `retryTimeout` - The initial time to wait before each retry.
+* `retryTimeout` - The initial time to wait (in milliseconds) before each retry.
 * `retryFactor` - The multiplier after each fail to multiply `retryTimeout` with.
 
 Request
@@ -33,4 +33,3 @@ Notice that if you don't want the library to retry, you can throw `require('reru
   var retry = require('rerun').promise;
   var promise = retry(function () { doSomething(); }, { retries: 2, retryTimeout: 10, retryFactor: 2 });
 ```
-
