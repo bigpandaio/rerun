@@ -1,4 +1,4 @@
-rerun [![Build Status](https://travis-ci.org/bigpandaio/rerun.svg?branch=develop)](https://travis-ci.org/bigpandaio/rerun)
+rerun [![Build Status](https://travis-ci.org/bigpandaio/rerun.svg?branch=master)](https://travis-ci.org/bigpandaio/rerun)
 =====
 
 A retry library for node.js.<br/>
