@@ -6,7 +6,7 @@ var retry = require('../../src/index')
 var request = retry.request;
 var Q = require('q');
 
-describe('Retry tests', function () {
+describe('Requet retry tests', function () {
 
   it('should fail after four tries', function () {
     var id = { complicated: 'id' };
