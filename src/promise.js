@@ -24,7 +24,7 @@ module.exports = function (toRetry, options) {
     }
   }
 
-  toRetry().then(_succeed, _failed);
+  Q.when(toRetry()).then(_succeed, _failed);
 
   return deferred.promise;
 }
