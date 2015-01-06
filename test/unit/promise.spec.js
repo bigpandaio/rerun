@@ -52,7 +52,7 @@ describe('Promise retry tests', function () {
 
   describe('passing logger in options', function() {
 
-    var logger = require('log-devnul');
+    var logger = require('log-devnull');
     var spy = sinon.spy(logger, 'warn');
 
     it('should result in calls to logger', function() {
