@@ -15,7 +15,8 @@
   ],
   "dependencies": {
     "q": "1.0.1",
-    "request": "2.36.0"
+    "request": "2.36.0",
+    "log-devnull": "1.0.0"
   },
   "main": "./src/index.js",
   "scripts": {
@@ -31,6 +32,8 @@
     "chai": "^1.10.0",
     "chai-as-promised": "^4.1.1",
     "mocha": "^2.1.0",
-    "nock": "~0.27.2"
+    "nock": "~0.27.2",
+    "sinon": "^1.12.2",
+    "sinon-chai": "^2.6.0"
   }
 }
