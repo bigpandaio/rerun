@@ -18,11 +18,11 @@ module.exports = function (toRetry, options) {
 
   function _failed(error) {
     if (error instanceof RejectError || error instanceof userRejectError || --retries <= 0) {
-      logger.error('Function execution failed permanently', {identifier: identifier})
+      logger.error('Function execution failed permanently', {identifier: identifier, error_message: error.message})
       deferred.reject(error);
     } else {
       var timeToWait = randomizeRetry ? Math.random() * (timeout / 2) + (timeout / 2) : timeout;
-      logger.warn('Function execution failed', {retries: retries, wait_for: timeToWait, identifier: identifier})
+      logger.warn('Function execution failed', {retries: retries, wait_for: timeToWait, identifier: identifier, error_message: error.message})
       Q.delay(timeToWait).then(function () { return toRetry() }).then(_succeed, _failed);
       timeout *= factor;
     }
