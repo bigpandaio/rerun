@@ -33,3 +33,22 @@ Notice that if you don't want the library to retry, you can throw `require('reru
   var retry = require('rerun').promise;
   var promise = retry(function () { doSomething(); }, { retries: 2, retryTimeout: 10, retryFactor: 2 });
 ```
+
+Object Proxy
+------------
+Want to proxy all methods of an object with rerun functionality? Piece of cake! To proxy all methods:
+```javascript
+  var object = { foo: function() {} }
+  var retry = require('rerun').proxy;
+  var proxy = retry.all(object, { retries: 2, retryTimeout: 10, retryFactor: 2 })
+  var promise = proxy.foo()
+```
+To proxy only some methods:
+```javascript
+  var object = { foo: function() {}, bar: function() {}}
+  var retry = require('rerun').proxy;
+  var proxy = retry.some(object, ['foo'], { retries: 2, retryTimeout: 10, retryFactor: 2 })
+  var promise = proxy.foo()
+```
+Notice that proxied functions are expected to return a promise.
+
