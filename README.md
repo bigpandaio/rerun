@@ -50,5 +50,5 @@ To proxy only some methods:
   var proxy = retry.some(object, ['foo'], { retries: 2, retryTimeout: 10, retryFactor: 2 })
   var promise = proxy.foo()
 ```
-Notice that proxied functions are expected to return a promise.
+__Notice that proxied functions are expected to return a promise.__
 
