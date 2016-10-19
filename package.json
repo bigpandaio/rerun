@@ -16,7 +16,7 @@
   "dependencies": {
     "log-devnull": "1.0.0",
     "q": "1.0.1",
-    "request": "2.72.0"
+    "request": "2.74.0"
   },
   "main": "./src/index.js",
   "scripts": {
