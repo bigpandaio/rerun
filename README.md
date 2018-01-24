@@ -3,6 +3,7 @@ rerun [![Build Status](https://travis-ci.org/bigpandaio/rerun.svg?branch=develop
 
 A retry library for node.js.<br/>
 Rerun supports promises and request.js, as you will see, the API is pretty simple.
+Latest version currently supports Node.js versions >= "4.x"
 
 The options and their defaults for rerun library are:
 ```javascript
